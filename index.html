@@ -11,9 +11,16 @@
         <h1 class="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
         <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest text-xs font-bold">AI Marketing Engine</p>
 
-        <div id="authBlock" class="mb-6">
-            <input type="password" id="passInput" placeholder="Введіть код доступу" class="w-full p-3 rounded-xl bg-black border border-gray-700 text-center outline-none focus:border-blue-500">
-            <button onclick="checkPass()" class="mt-2 text-xs text-blue-400 underline">Активувати доступ</button>
+        <div id="authBlock" class="mb-6 p-4 bg-black/40 rounded-2xl border border-gray-800">
+            <p class="text-xs text-gray-400 mb-4">Для доступу введіть пароль або придбайте його:</p>
+            <input type="password" id="passInput" placeholder="Код доступу" class="w-full p-3 rounded-xl bg-black border border-gray-700 text-center outline-none focus:border-blue-500 mb-3">
+            <button onclick="checkPass()" class="w-full bg-blue-600 p-3 rounded-xl font-bold text-sm mb-4">Активувати доступ</button>
+            
+            <div class="border-t border-gray-800 pt-4">
+                <p class="text-[10px] text-gray-500 mb-2">НЕМАЄ ПАРОЛЯ? ОПЛАТІТЬ 100 ГРН НА КАРТКУ ТА ПРИШЛІТЬ СКРІНШОТ:</p>
+                <p class="text-sm font-mono text-blue-400 mb-2">5355280222006031</p>
+                <a href="https://t.me/@vadimkhabalyuk" class="text-xs text-emerald-400 underline italic">Надіслати чек у Telegram ↗</a>
+            </div>
         </div>
 
         <div id="mainApp" class="opacity-30 pointer-events-none">
@@ -21,24 +28,18 @@
             <button onclick="askAI()" id="btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 p-4 rounded-2xl font-bold hover:opacity-90 transition active:scale-95 shadow-lg shadow-blue-500/20">Згенерувати магію ✨</button>
         </div>
 
-        <div id="result" class="mt-8 p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl hidden">
-            <p id="aiText" class="text-gray-200 leading-relaxed text-sm italic"></p>
-        </div>
+        <div id="result" class="mt-8 p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl hidden"><p id="aiText" class="text-gray-200 leading-relaxed text-sm italic"></p></div>
     </div>
 
     <script>
-        // Твій пароль для клієнтів (можеш змінити на свій)
-        const MY_PASS = "1868"; 
+        // ТУТ ЗМІНЮЙ ПАРОЛЬ, ЯКЩО ЙОГО ЗЛИЛИ В МЕРЕЖУ
+        const MY_PASS = "7777"; 
 
         function checkPass() {
-            const val = document.getElementById('passInput').value;
-            if(val === MY_PASS) {
+            if(document.getElementById('passInput').value === MY_PASS) {
                 document.getElementById('authBlock').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('opacity-30', 'pointer-events-none');
-                alert("Доступ активовано!");
-            } else {
-                alert("Невірний код!");
-            }
+            } else { alert("Невірний код!"); }
         }
 
         async function askAI() {
@@ -46,12 +47,9 @@
             const b = document.getElementById('btn');
             const r = document.getElementById('result');
             const a = document.getElementById('aiText');
-            
-            // Твоя хитрість із захистом ключа
             const p1 = "sk-proj-";
             const p2 = "UdDkb4939y_6B0kNRPLZZPfCBxFxCmH6tceexby1zpTA0_3wARUU62C5erUhAp3uz2uWj_LDwF3BlbkFJ3BZsD8TJwjNU8U49bypouS27KCy_w-A131NxNZ22BaEFBaK3xZP9cRhO1OIFD9szj_BHsSdKkA";
             const KEY = p1 + p2;
-
             if(!t) return alert("Спочатку напиши щось!");
             b.innerText = "ШІ думає..."; b.disabled = true;
             try {
