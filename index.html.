@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashContent.ai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white">
+    <div class="flex flex-col items-center justify-center min-h-screen px-6">
+        <h1 class="text-4xl font-black mb-2">FlashContent<span class="text-blue-500">.ai</span></h1>
+        <p class="text-gray-400 mb-8 text-center">Штучний інтелект для твого бізнесу</p>
+        
+        <div class="w-full max-w-sm bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-xl">
+            <input id="topic" type="text" placeholder="Про що пишемо?" class="w-full p-4 rounded-xl bg-gray-800 border border-gray-700 mb-4 focus:ring-2 focus:ring-blue-500 outline-none">
+            <button onclick="generate()" id="btn" class="w-full bg-blue-600 p-4 rounded-xl font-bold active:scale-95 transition">Запустити магію ✨</button>
+        </div>
+
+        <div id="result" class="mt-8 p-6 bg-blue-900/20 border border-blue-500/30 rounded-2xl hidden max-w-sm">
+            <p id="aiText" class="leading-relaxed text-blue-100"></p>
+        </div>
+    </div>
+
+    <script>
+        function generate() {
+            const t = document.getElementById('topic').value;
+            const b = document.getElementById('btn');
+            const r = document.getElementById('result');
+            const a = document.getElementById('aiText');
+            if(!t) return;
+            b.innerText = "Обробка...";
+            setTimeout(() => {
+                a.innerText = "Готово! Твій ідеальний текст для '" + t + "' вже в черзі. Підключи API для реального результату.";
+                r.classList.remove('hidden');
+                b.innerText = "Запустити магію ✨";
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
