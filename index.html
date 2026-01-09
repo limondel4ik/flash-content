@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlashContent.ai — Твій ШІ-маркетолог</title>
+    <title>FlashContent.ai - Твій ШІ-маркетолог</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white font-sans min-h-screen flex items-center justify-center p-6 text-center">
     <div class="max-w-md w-full bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-2xl">
-        <h1 class="text-3xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
+        <h1 class="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
         <p class="text-gray-500 text-sm mb-8 uppercase tracking-widest text-xs font-bold">AI Marketing Engine</p>
         <textarea id="prompt" placeholder="Опиши свій товар..." class="w-full h-32 p-4 rounded-2xl bg-black border border-gray-700 mb-4 focus:ring-2 focus:ring-blue-500 outline-none text-white resize-none"></textarea>
-        <button onclick="askAI()" id="btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 p-4 rounded-2xl font-bold hover:opacity-90 transition active:scale-95 shadow-lg shadow-blue-500/20 text-white border-0 cursor-pointer">Згенерувати магію ✨</button>
+        <button onclick="askAI()" id="btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 p-4 rounded-2xl font-bold hover:opacity-90 transition active:scale-95 shadow-lg shadow-blue-500/20">Згенерувати магію ✨</button>
         <div id="result" class="mt-8 p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl hidden"><p id="aiText" class="text-gray-200 leading-relaxed text-sm italic"></p></div>
     </div>
+
     <script>
         async function askAI() {
             const t = document.getElementById('prompt').value;
             const b = document.getElementById('btn');
             const r = document.getElementById('result');
             const a = document.getElementById('aiText');
-            const KEY = "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";
+            const KEY = "sk-proj-UdDkb4939y_6B0kNRPLZZPfCBxFxCmH6tceexby1zpTA0_3wARUU62C5erUhAp3uz2uWj_LDwF3BlbkFJ3BZsD8TJwjNU8U49bypouS27KCy_w-A131NxNZ22BaEFBaK3xZP9cRhO1OIFD9szj_BHsSdKkA";
+
             if(!t) return alert("Спочатку напиши щось!");
             b.innerText = "ШІ думає..."; b.disabled = true;
             try {
                 const res = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${KEY}`},
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${KEY}` },
                     body: JSON.stringify({model: "gpt-3.5-turbo", messages: [{role: "user", content: "Напиши рекламний пост українською про: " + t}]})
                 });
                 const d = await res.json();
