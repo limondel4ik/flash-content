@@ -3,78 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlashContent.ai - Твій ШІ-маркетолог</title>
+    <title>FlashContent.ai — Твій преміум ШІ-маркетолог</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #0d1117, #010409);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @keyframes gradient-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background: linear-gradient(270deg, #3b82f6, #10b981, #6366f1);
+            background-size: 600% 600%;
+            animation: gradient-move 10s ease infinite;
+        }
+    </style>
 </head>
-<body class="bg-black text-white font-sans min-h-screen flex items-center justify-center p-6 text-center">
-    <div class="max-w-md w-full bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-2xl">
-        <h1 class="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
-        <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest text-xs font-bold">AI Marketing Engine</p>
+<body class="text-white font-sans flex items-center justify-center p-4">
+    <div class="max-w-lg w-full glass p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
+        
+        <h1 class="text-4xl font-black mb-1 text-transparent bg-clip-text animate-gradient bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
+        <p class="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-8">Professional Marketing Engine</p>
 
-        <div id="authBlock" class="mb-6 p-4 bg-black/40 rounded-2xl border border-gray-800">
-            <p class="text-xs text-gray-400 mb-4">Для доступу введіть пароль або придбайте його:</p>
-            <input type="password" id="passInput" placeholder="Код доступу" class="w-full p-3 rounded-xl bg-black border border-gray-700 text-center outline-none focus:border-blue-500 mb-3">
-            <button onclick="checkPass()" class="w-full bg-blue-600 p-3 rounded-xl font-bold text-sm mb-4">Активувати доступ</button>
+        <div id="authBlock" class="space-y-4">
+            <div class="bg-black/40 p-6 rounded-3xl border border-white/5">
+                <p class="text-xs text-gray-400 mb-4">Введіть персональний код для активації ШІ:</p>
+                <input type="password" id="passInput" placeholder="••••" class="w-full p-4 rounded-2xl bg-black border border-gray-800 text-center text-xl tracking-widest outline-none focus:border-blue-500 transition-all mb-4">
+                <button onclick="checkPass()" class="w-full animate-gradient p-4 rounded-2xl font-black text-sm uppercase tracking-wider shadow-lg shadow-blue-500/20 active:scale-95 transition-all">Увійти в систему</button>
+            </div>
             
-            <div class="border-t border-gray-800 pt-4">
-                <p class="text-[10px] text-gray-500 mb-2">НЕМАЄ ПАРОЛЯ? ОПЛАТІТЬ 100 ГРН НА КАРТКУ ТА ПРИШЛІТЬ СКРІНШОТ:</p>
-                <p class="text-sm font-mono text-blue-400 mb-2">5355280222006031</p>
-                <a href="https://t.me/@vadimkhabalyuk" class="text-xs text-emerald-400 underline italic">Надіслати чек у Telegram ↗</a>
+            <div class="pt-4 text-center">
+                <p class="text-[10px] text-gray-500 uppercase mb-3">Немає доступу? Оплатіть підписку (100 грн):</p>
+                <div class="bg-blue-500/10 border border-blue-500/20 p-3 rounded-2xl inline-block mb-3">
+                    <span class="text-blue-400 font-mono text-sm">5355 2802 2200 6031</span>
+                </div>
+                <br>
+                <a href="https://t.me/@vadimkhabalyuk" class="text-xs text-emerald-400 hover:text-emerald-300 transition underline decoration-2 underline-offset-4">Надіслати чек менеджеру ↗</a>
             </div>
         </div>
 
-        <div id="mainApp" class="opacity-30 pointer-events-none">
-            <textarea id="prompt" placeholder="Опиши свій товар..." class="w-full h-32 p-4 rounded-2xl bg-black border border-gray-700 mb-4 focus:ring-2 focus:ring-blue-500 outline-none text-white resize-none"></textarea>
-            <button onclick="askAI()" id="btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 p-4 rounded-2xl font-bold hover:opacity-90 transition active:scale-95 shadow-lg shadow-blue-500/20">Згенерувати магію ✨</button>
+        <div id="mainApp" class="hidden opacity-0 translate-y-4 transition-all duration-500">
+            <textarea id="prompt" placeholder="Напиши, що рекламуємо (наприклад: Пост для інсти про кав'ярню)..." class="w-full h-40 p-5 rounded-3xl bg-black/60 border border-gray-800 mb-6 focus:ring-2 focus:ring-blue-500 outline-none text-white resize-none text-sm leading-relaxed"></textarea>
+            <button onclick="askAI()" id="btn" class="w-full animate-gradient p-5 rounded-3xl font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all">Згенерувати магію ✨</button>
+            
+            <div id="result" class="mt-8 p-6 bg-white/5 border border-white/10 rounded-3xl hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Результат генерації:</span>
+                    <button onclick="copyText()" class="text-[10px] text-blue-400 font-bold uppercase hover:text-blue-300">Копіювати</button>
+                </div>
+                <p id="aiText" class="text-gray-200 text-sm leading-relaxed text-left whitespace-pre-wrap"></p>
+            </div>
         </div>
-
-        <div id="result" class="mt-8 p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl hidden"><p id="aiText" class="text-gray-200 leading-relaxed text-sm italic"></p></div>
     </div>
 
     <script>
-        // ТУТ ЗМІНЮЙ ПАРОЛЬ, ЯКЩО ЙОГО ЗЛИЛИ В МЕРЕЖУ
         const MY_PASS = "7777"; 
 
         function checkPass() {
             if(document.getElementById('passInput').value === MY_PASS) {
                 document.getElementById('authBlock').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('opacity-30', 'pointer-events-none');
-            } else { alert("Невірний код!"); }
+                const app = document.getElementById('mainApp');
+                app.classList.remove('hidden');
+                setTimeout(() => {
+                    app.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+            } else { alert("Код невірний. Перевірте оплату."); }
         }
 
         async function askAI() {
-    const t = document.getElementById('prompt').value;
-    const b = document.getElementById('btn');
-    const r = document.getElementById('result');
-    const a = document.getElementById('aiText');
+            const t = document.getElementById('prompt').value;
+            const b = document.getElementById('btn');
+            const r = document.getElementById('result');
+            const a = document.getElementById('aiText');
 
-    if(!t) return alert("Спочатку напиши щось!");
+            if(!t) return alert("Будь ласка, введіть опис!");
 
-    b.innerText = "ШІ думає..."; 
-    b.disabled = true;
+            b.innerText = "Обробка запиту..."; 
+            b.disabled = true;
+            b.classList.add('opacity-50');
 
-    try {
-        // Ми звертаємося до нашого майбутнього бекенду на Vercel
-        const res = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: t })
-        });
-        
-        const d = await res.json();
-        if (d.error) throw new Error(d.error);
-        
-        a.innerText = d.choices[0].message.content;
-        r.classList.remove('hidden');
-    } catch (e) { 
-        a.innerText = "Помилка: " + e.message; 
-        r.classList.remove('hidden'); 
-    } finally { 
-        b.innerText = "Згенерувати магію ✨"; 
-        b.disabled = false; 
-    }
+            try {
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: t })
+                });
+                
+                const d = await res.json();
+                if (d.error) throw new Error(d.error);
+                
+                a.innerText = d.choices[0].message.content;
+                r.classList.remove('hidden');
+            } catch (e) { 
+                alert("Помилка: " + e.message); 
+            } finally { 
+                b.innerText = "Згенерувати магію ✨"; 
+                b.disabled = false; 
+                b.classList.remove('opacity-50');
+            }
         }
-        
+
+        function copyText() {
+            const text = document.getElementById('aiText').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Текст скопійовано!");
+        }
     </script>
 </body>
 </html>
