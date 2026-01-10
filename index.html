@@ -43,28 +43,38 @@
         }
 
         async function askAI() {
-            const t = document.getElementById('prompt').value;
-            const b = document.getElementById('btn');
-            const r = document.getElementById('result');
-            const a = document.getElementById('aiText');
-            const p1 = "sk-proj-";
-            const p2 = "UdDkb4939y_6B0kNRPLZZPfCBxFxCmH6tceexby1zpTA0_3wARUU62C5erUhAp3uz2uWj_LDwF3BlbkFJ3BZsD8TJwjNU8U49bypouS27KCy_w-A131NxNZ22BaEFBaK3xZP9cRhO1OIFD9szj_BHsSdKkA";
-            const KEY = p1 + p2;
-            if(!t) return alert("Спочатку напиши щось!");
-            b.innerText = "ШІ думає..."; b.disabled = true;
-            try {
-                const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${KEY}` },
-                    body: JSON.stringify({model: "gpt-3.5-turbo", messages: [{role: "user", content: "Напиши рекламний пост українською про: " + t}]})
-                });
-                const d = await res.json();
-                if (d.error) throw new Error(d.error.message);
-                a.innerText = d.choices[0].message.content;
-                r.classList.remove('hidden');
-            } catch (e) { a.innerText = "Помилка: " + e.message; r.classList.remove('hidden'); }
-            finally { b.innerText = "Згенерувати магію ✨"; b.disabled = false; }
+    const t = document.getElementById('prompt').value;
+    const b = document.getElementById('btn');
+    const r = document.getElementById('result');
+    const a = document.getElementById('aiText');
+
+    if(!t) return alert("Спочатку напиши щось!");
+
+    b.innerText = "ШІ думає..."; 
+    b.disabled = true;
+
+    try {
+        // Ми звертаємося до нашого майбутнього бекенду на Vercel
+        const res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: t })
+        });
+        
+        const d = await res.json();
+        if (d.error) throw new Error(d.error);
+        
+        a.innerText = d.choices[0].message.content;
+        r.classList.remove('hidden');
+    } catch (e) { 
+        a.innerText = "Помилка: " + e.message; 
+        r.classList.remove('hidden'); 
+    } finally { 
+        b.innerText = "Згенерувати магію ✨"; 
+        b.disabled = false; 
+    }
         }
+        
     </script>
 </body>
 </html>
