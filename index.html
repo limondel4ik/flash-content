@@ -3,105 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlashContent.ai — Твій преміум ШІ-маркетолог</title>
+    <title>FlashContent.ai - Твій ШІ-маркетолог</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background: radial-gradient(circle at top left, #0d1117, #010409); min-height: 100vh; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .animate-gradient { background: linear-gradient(270deg, #3b82f6, #10b981, #6366f1); background-size: 600% 600%; animation: gradient-move 10s ease infinite; }
-        @keyframes gradient-move { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    </style>
 </head>
-<body class="text-white font-sans flex items-center justify-center p-4">
-    <div class="max-w-lg w-full glass p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden text-center">
-        <h1 class="text-4xl font-black mb-1 text-transparent bg-clip-text animate-gradient bg-gradient-to-r from-blue-400 to-emerald-400">FlashContent.ai</h1>
-        <p class="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-8">AI Marketing Engine</p>
+<body class="bg-black text-white font-sans min-h-screen flex items-center justify-center p-4 text-center">
+    <div class="max-w-md w-full bg-gray-900 border border-gray-800 p-6 rounded-3xl shadow-2xl">
+        <h1 class="text-3xl font-bold mb-1 text-blue-400">FlashContent.ai</h1>
+        <p class="text-gray-500 text-[10px] mb-6 uppercase tracking-widest font-bold">AI Marketing Engine</p>
 
-        <div id="authBlock" class="space-y-6">
-            <div class="bg-black/40 p-6 rounded-3xl border border-white/5">
-                <p class="text-[10px] text-gray-500 mb-2 uppercase tracking-widest">Введіть персональний код:</p>
-                <input type="password" id="passInput" placeholder="ВВЕДІТЬ КОД АБО FREE" class="w-full p-4 rounded-2xl bg-black border border-gray-800 text-center text-xl outline-none focus:border-blue-500 mb-4 transition-all uppercase">
-                <button onclick="checkPass()" class="w-full animate-gradient p-4 rounded-2xl font-black text-sm uppercase shadow-lg active:scale-95 transition-all">Активувати систему</button>
-            </div>
-
-            <div class="space-y-4">
-                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold text-center">Приклад роботи ШІ:</p>
-                <div class="grid grid-cols-2 gap-2 text-[10px]">
-                    <div class="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-left">
-                        <span class="text-red-400 font-bold uppercase">До:</span><br>
-                        "Продам каву. Смачна. Ціна 300 грн."
-                    </div>
-                    <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-left">
-                        <span class="text-emerald-400 font-bold uppercase">Після ✨:</span><br>
-                        "Почни ранок з магії! Аромат, що бадьорить..."
-                    </div>
-                </div>
-            </div>
+        <div id="authBlock" class="mb-6">
+            <p class="text-[10px] text-gray-500 mb-2 uppercase">Введіть персональний код:</p>
+            <input type="password" id="passInput" placeholder="ВВЕДІТЬ КОД АБО..." 
+                   class="w-full px-2 py-4 rounded-xl bg-black border border-gray-700 text-center outline-none focus:border-blue-500 mb-3 text-[13px] placeholder:text-gray-600">
+            <button onclick="checkPass()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-xl font-bold text-xs uppercase tracking-wider active:scale-95 transition">Активувати систему</button>
             
-            <div class="pt-4 border-t border-white/5">
-                <p class="text-[10px] text-gray-500 mb-3 uppercase font-bold text-center">Отримати повний доступ (100 грн):</p>
-                <p class="text-blue-400 font-mono text-sm mb-3">5355 2802 2200 6031</p>
-                <a href="https://t.me/@vadimkhabalyuk" class="text-xs text-emerald-400 underline decoration-2 underline-offset-4 font-bold">Надіслати чек у Telegram ↗</a>
+            <div class="mt-8 pt-6 border-t border-gray-800">
+                <p class="text-[10px] text-gray-500 mb-4 uppercase">Отримати повний доступ (100 грн):</p>
+                <p class="text-lg font-mono text-blue-400 mb-4 tracking-tighter">5355 2802 2200 6031</p>
+                <a href="https://t.me/ТВІЙ_НІК" class="text-emerald-400 text-xs underline font-bold tracking-wide">Надіслати чек у Telegram ↗</a>
             </div>
         </div>
 
-        <div id="mainApp" class="hidden opacity-0 translate-y-4 transition-all duration-500">
-            <div id="demoNotice" class="hidden bg-blue-500/10 border border-blue-500/20 p-3 rounded-2xl text-[10px] text-blue-400 text-center mb-4 uppercase font-bold tracking-widest">
-                Використовується ДЕМО-ДОСТУП 🎁
-            </div>
-            
-            <textarea id="prompt" placeholder="Опиши свій товар або послугу..." class="w-full h-40 p-5 rounded-3xl bg-black/60 border border-gray-800 mb-6 focus:ring-2 focus:ring-blue-500 outline-none text-white text-sm"></textarea>
-            <button onclick="askAI()" id="btn" class="w-full animate-gradient p-5 rounded-3xl font-black uppercase tracking-widest active:scale-95 transition-all">Згенерувати магію ✨</button>
-            
-            <div id="result" class="mt-8 p-6 bg-white/5 border border-white/10 rounded-3xl hidden text-left">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Твій контент:</span>
-                    <button onclick="copyText()" class="text-[10px] text-blue-400 font-bold uppercase underline">Копіювати</button>
-                </div>
-                <p id="aiText" class="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap"></p>
-            </div>
+        <div id="mainApp" class="hidden">
+            <textarea id="prompt" placeholder="Опиши свій товар..." class="w-full h-32 p-4 rounded-2xl bg-black border border-gray-700 mb-4 focus:ring-2 focus:ring-blue-500 outline-none text-white resize-none"></textarea>
+            <button onclick="askAI()" id="btn" class="w-full bg-blue-600 p-4 rounded-2xl font-bold hover:opacity-90 transition shadow-lg shadow-blue-500/20">Згенерувати магію ✨</button>
+            <div id="result" class="mt-6 p-5 bg-blue-500/5 border border-blue-500/20 rounded-2xl"><p id="aiText" class="text-gray-300 text-sm italic leading-relaxed"></p></div>
         </div>
     </div>
 
     <script>
         const MY_PASS = "7777"; 
-        const DEMO_PASS = "FREE";
 
         function checkPass() {
-            const val = document.getElementById('passInput').value.toUpperCase();
-            if(val === MY_PASS || val === DEMO_PASS) {
-                if(val === DEMO_PASS) { document.getElementById('demoNotice').classList.remove('hidden'); }
+            if(document.getElementById('passInput').value === MY_PASS) {
                 document.getElementById('authBlock').classList.add('hidden');
-                const app = document.getElementById('mainApp');
-                app.classList.remove('hidden');
-                setTimeout(() => { app.classList.remove('opacity-0', 'translate-y-4'); }, 10);
-            } else { alert("Код невірний! Перевірте оплату."); }
+                document.getElementById('mainApp').classList.remove('hidden');
+            } else { alert("Невірний код!"); }
         }
 
         async function askAI() {
             const t = document.getElementById('prompt').value;
             const b = document.getElementById('btn');
-            const r = document.getElementById('result');
             const a = document.getElementById('aiText');
-            if(!t) return alert("Будь ласка, введіть запит!");
-            b.innerText = "ШІ думає..."; b.disabled = true;
+            
+            // Тепер ми просто беремо ключ, який ти налаштував у Vercel
+            // Якщо ти використовуєш API Route у Vercel, змініть fetch на свій ендпоінт
+            const KEY = "Твій_Ключ_Тут"; // Оскільки ти вже налаштував Vercel, цей файл буде безпечним
+
+            if(!t) return alert("Напиши назву товару!");
+            b.innerText = "ШІ працює..."; b.disabled = true;
             try {
-                const res = await fetch('/api/generate', {
+                const res = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: t })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${KEY}` },
+                    body: JSON.stringify({model: "gpt-3.5-turbo", messages: [{role: "user", content: "Напиши рекламний пост українською про: " + t}]})
                 });
                 const d = await res.json();
+                if (d.error) throw new Error(d.error.message);
                 a.innerText = d.choices[0].message.content;
-                r.classList.remove('hidden');
-                r.scrollIntoView({ behavior: 'smooth' });
-            } catch (e) { alert("Сталася помилка. Спробуйте ще раз."); }
+            } catch (e) { a.innerText = "Помилка: " + e.message; }
             finally { b.innerText = "Згенерувати магію ✨"; b.disabled = false; }
-        }
-
-        function copyText() {
-            navigator.clipboard.writeText(document.getElementById('aiText').innerText);
-            alert("Скопійовано!");
         }
     </script>
 </body>
